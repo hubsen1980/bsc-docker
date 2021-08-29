@@ -2,7 +2,7 @@ FROM golang:alpine as build
 
 WORKDIR /build
 ARG VERSION
-RUN apk add --no-cache make gcc musl-dev linux-headers git bash
+RUN apt install make gcc musl-dev linux-headers git bash
 RUN git clone --depth 1 -b "${VERSION}" --single-branch https://github.com/binance-chain/bsc.git
 RUN cd bsc && make geth && cp /build/bsc/build/bin/geth /build && chmod +x /build/geth
 RUN mkdir -p mainnet/data mainnet/config testnet/data testnet/config && \
